@@ -1,0 +1,8 @@
+services:
+  - type: static
+    name: pwm-spa-angular
+    buildCommand: npm ci && npm run build
+    publishPath: dist
+    envVars:
+      - key: BACKEND_URL
+        value: https://<your-backend-on-render>.onrender.com
