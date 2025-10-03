@@ -1,8 +1,0 @@
-services:
-  - type: static
-    name: pwm-spa-angular
-    buildCommand: npm ci && npm run build
-    publishPath: dist
-    envVars:
-      - key: BACKEND_URL
-        value: https://https://password-backend-fc0k.onrender.com
