@@ -3,6 +3,17 @@ import { Component, inject } from '@angular/core';
 import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
+interface LoginResponse { tmpToken: string; }
+interface VerifyResponse { token: string; }
+interface VaultItem {
+  id: number;
+  title: string;
+  username: string;
+  url?: string;
+  note?: string;
+  password?: string;
+}
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -34,10 +45,28 @@ class AppComponent {
   backend = (window as any)['BACKEND_URL'] || (location.origin.replace(/:\d+$/,'') + ':8080');
   email = ''; password=''; tmpToken=''; code=''; token='';
   title=''; username=''; pw=''; items:any[]=[];
-  login(){ this.http.post<any>(this.backend+'/api/auth/login',{email:this.email,password:this.password}).subscribe(r=>{ this.tmpToken=r.tmpToken; }); }
-  verify(){ this.http.post<any>(this.backend+'/api/auth/totp-verify',{tmpToken:this.tmpToken, code:this.code}).subscribe(r=>{ this.token=r.token; this.load(); }); }
-  load(){ this.http.get<any[]>(this.backend+'/api/vault',{ headers: new HttpHeaders({'Authorization':'Bearer '+this.token}) }).subscribe(r=> this.items=r); }
+  llogin() {
+  this.http
+    .post<LoginResponse>(this.backend + '/api/auth/login', { email: this.email, password: this.password })
+    .subscribe((res: LoginResponse) => { this.tmpToken = res.tmpToken; });
+}
+
+verify() {
+  this.http
+    .post<VerifyResponse>(this.backend + '/api/auth/totp-verify', { tmpToken: this.tmpToken, code: this.code })
+    .subscribe((res: VerifyResponse) => { this.token = res.token; this.load(); });
+}
+
+load() {
+  this.http
+    .get<VaultItem[]>(this.backend + '/api/vault', { headers: new HttpHeaders({ Authorization: 'Bearer ' + this.token }) })
+    .subscribe((items: VaultItem[]) => this.items = items);
+}
+
+
   create(){ this.http.post<any>(this.backend+'/api/vault',{title:this.title, username:this.username, password:this.pw},
     { headers: new HttpHeaders({'Authorization':'Bearer '+this.token}) }).subscribe(()=> this.load()); }
+
+    
 }
 bootstrapApplication(AppComponent);
