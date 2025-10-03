@@ -7,13 +7,26 @@
     "start": "ng serve",
     "build": "ng build --configuration production"
   },
-  "devDependencies": {
-    "@angular/cli": "^17.3.8",
-    "@angular-devkit/build-angular": "^17.3.8",
-    "typescript": "~5.3.3",
+  "dependencies": {
+    "@angular/animations": "^17.3.0",
+    "@angular/common": "^17.3.0",
+    "@angular/compiler": "^17.3.0",
+    "@angular/core": "^17.3.0",
+    "@angular/forms": "^17.3.0",
+    "@angular/platform-browser": "^17.3.0",
+    "@angular/platform-browser-dynamic": "^17.3.0",
+    "@angular/router": "^17.3.0",
+    "rxjs": "^7.8.1",
+    "tslib": "^2.6.2",
     "zone.js": "^0.14.5"
   },
+  "devDependencies": {
+    "@angular/cli": "^17.3.17",
+    "@angular-devkit/build-angular": "^17.3.17",
+    "@angular/compiler-cli": "^17.3.0",
+    "typescript": "~5.3.3"
+  },
   "engines": {
-    "node": ">=18 <20"
+    "node": ">=20 <21"
   }
 }
