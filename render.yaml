@@ -5,4 +5,4 @@ services:
     publishPath: dist
     envVars:
       - key: BACKEND_URL
-        value: https://<your-backend-on-render>.onrender.com
+        value: https://https://password-backend-fc0k.onrender.com
